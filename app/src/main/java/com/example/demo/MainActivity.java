@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
@@ -12,6 +14,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.demo.model.Student;
+
+import java.io.Serializable;
 
 public class MainActivity extends AppCompatActivity {
     private EditText edit_name, edit_student_id, edit_surname, edit_year, edit_address, edit_age;
@@ -76,6 +80,19 @@ public class MainActivity extends AppCompatActivity {
                                 student.getName() + " " +
                                 student.getSurname());
 
+                if(student.getStudentId() != null){
+                    Intent i = new Intent(MainActivity.this,StudentActivity.class);
+                    i.putExtra("studentId", student.getStudentId());
+                    i.putExtra("name", student.getName());
+                    i.putExtra("surname", student.getSurname());
+                    i.putExtra("address", student.getAddress());
+                    i.putExtra("age", student.getAge());
+                    i.putExtra("year", student.getYear());
+                    startActivity(i);
+                }
+                else {
+                    Toast.makeText(MainActivity.this,"ไม่พบข้อมูล",Toast.LENGTH_SHORT).show();
+                }
                 // ไปintent ข้อมูลเองนะไม่ยากแล้วทำ search ให้แล้ว แคส่งข้อมูลไปแสดงอีกหน้านึง keyword intent
                 return false;
             }
